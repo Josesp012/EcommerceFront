@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../../models/cliente.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
@@ -10,7 +10,7 @@ import { ClienteService } from '../../services/cliente.service';
   templateUrl: './clientes.component.html',
   styleUrl: './clientes.component.css'
 })
-export class ClientesComponent {
+export class ClientesComponent implements OnInit{
 
   clientes: Cliente[] = [];
   clienteForm: FormGroup;
@@ -24,10 +24,10 @@ export class ClientesComponent {
     private formBuilder: FormBuilder
   ){
     this.clienteForm= this.formBuilder.group({
-      id:[null] ,
-        nombre: ['',[Validators.required, Validators.maxLength(50)]],
-        apellido: ['',[Validators.required, Validators.maxLength(50)]],
-        email: ['',[Validators.required ]],
+      idCliente:[null] ,
+        nombre: ['',Validators.required],
+        apellido: ['',Validators.required],
+        email: ['',[Validators.required, Validators.email]],
         telefono: ['',[Validators.required]],
         direccion: ['',[Validators.required]],
   
@@ -38,13 +38,24 @@ export class ClientesComponent {
     this.loadClientes();
     }
 
-loadClientes(): void{
-  this.clienteService.getClientes().subscribe({
-  next: data =>{
-  this.clientes = data;
+  loadClientes(): void{
+    this.clienteService.getClientes().subscribe({
+    next: (data) =>{
+    this.clientes = data;
+  },
+  error: (error) => {
+    console.error('Error al cargar clientes:', error);
   }
-  })
+  });
 }
+/*
+openModal(): void {
+  this.showModal = true;
+  this.modalTitle = 'Agregar Cliente';
+  this.isEditMode = false;
+  this.clienteForm.reset();
+}*/
+
 
 toggleForm(): void{
   this.showForm = !this.showForm;
@@ -55,16 +66,16 @@ toggleForm(): void{
   
 }
 
-onSubmit(): void{
+  onSubmit(): void{
   if (this.clienteForm.invalid) {
     return;
   }
 
-const clienteData: Cliente = this.clienteForm.value;
+    const clienteData: Cliente = this.clienteForm.value;
     if(this.isEditModel){
       this.clienteService.updateCliente(clienteData).subscribe({
         next: (updateCliente) =>{
-          const index = this.clientes.findIndex(a => a.id === clienteData.id);
+          const index = this.clientes.findIndex(a => a.idCliente === clienteData.idCliente);
           if(index !== -1){
               this.clientes[index] = updateCliente;
           }
@@ -122,7 +133,7 @@ const clienteData: Cliente = this.clienteForm.value;
     this.showForm = true;
 
     this.clienteForm.patchValue({ 
-      id: cliente.id ,
+      id: cliente.idCliente ,
       nombre: cliente.nombre,
       apellido: cliente.apellido,
       email: cliente.email,
@@ -143,7 +154,7 @@ deleteCliente(idCliente: number){
   if(resp.isConfirmed){
     this.clienteService.deleteCliente(idCliente).subscribe({
       next: (deleteCliente) => {
-        this.clientes =this.clientes.filter(a => a.id !== idCliente);
+        this.clientes =this.clientes.filter(a => a.idCliente !== idCliente);
         Swal.fire({
           title: "Cliente eliminada",
           text: "El Cliente fue eliminado exitosamente",
