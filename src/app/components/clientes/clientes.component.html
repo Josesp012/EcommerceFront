@@ -20,11 +20,10 @@
             </tr>
           </thead>
           <tbody>
-            <!-- Aquí se muestra cada Aerolínea usando *ngFor -->
             <tr *ngFor="let cliente of clientes; let i = index"
                 style = "text-align: center;">
                 <td>{{i + 1 }}</td>
-              <td hidden>{{ cliente.idCliente}}</td> <!--|| 'N/A' -->
+              <td hidden>{{ cliente.idCliente}}</td> 
               <td>{{ cliente.nombre }}</td>
               <td>{{ cliente.apellido }}</td>
               <td>{{ cliente.email }}</td>
@@ -42,7 +41,7 @@
           </tbody>
     </table>
     
-  <div *ngIf="showForm" style="margin-top: 20px;"> <!--[ngStyle]="{'display': showModal ? 'block' : 'none'}"-->
+  <div *ngIf="showForm" style="margin-top: 20px;"> 
     <h3>{{textoModel}}</h3>
     <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
         <input type="hidden" formControlName="idCliente" readonly/>
