@@ -150,8 +150,7 @@ deleteCliente(idCliente: number){
           title: "Cliente eliminado",
           text: "El Cliente fue eliminado exitosamente",
           icon: "success"
-      });
-        
+      });       
       },
       error: (error) =>{
         this.mostrarErrores(error)

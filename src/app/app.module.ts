@@ -8,13 +8,15 @@ import { ClientesComponent } from './components/clientes/clientes.component';
 import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductoComponent,
     ClientesComponent,
-    NavbarComponent
+    NavbarComponent,
+    PedidosComponent
   ],
   imports: [
     BrowserModule,
