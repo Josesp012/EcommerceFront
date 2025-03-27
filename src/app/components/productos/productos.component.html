@@ -1,0 +1,74 @@
+<p>productos works!</p>
+<div class="container-fluid mt-4" style="width: 95%;">
+    <h2>PRODUCTO</h2>
+  <div class="d*flex justify-content-between mb-3">
+    <button (click)="toggleForm()" class="btn btn-success">
+      <i class="fa-solid fa-plus"></i>
+      Registrar Productos
+  </button>
+    <button class="btn btn-link">
+        <i class="fa fa-downloas me-2"></i>Exportar a Excel
+    </button>
+  </div>
+    <table class="table table-striped table-bordered mt-3">
+        <thead class="table-dark">
+            <tr style="text-align: center;">
+              
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Stock</th>
+              <th scope="col" style="width: 15%">Acciones</th>
+            </tr>
+          </thead>
+              <tbody>
+            <!-- Aquí se muestra cada Aerolínea usando *ngFor -->
+            <tr *ngFor="let prodcuto of productos; let i = index"
+                style = "text-align: center;">
+                <td>{{i + 1 }}</td>
+              <td hidden>{{ productos.id }}</td>
+              <td>{{ productos.nombre }}</td>
+              <td>{{ productos.descripcion }}</td>
+              <td>{{ productos.precio}}</td>
+              <td>{{ productos.stock}}</td>
+              <td>
+                <button class="btn btn-primary btn-sm me-1" (click)="editProducto(producto)">
+                <i class="fa fa-edit"></i>Editar
+              </button>
+              <button class="btn btn-danger btn-sm me-1" (click)="cliente.id ? deleteProducto(producto.id): null">
+                <i class="fa fa-trash"></i>Eliminar
+              </button>
+              </td>
+            </tr>
+          </tbody>
+    </table>  
+  <div *ngIf="showForm" style="margin-top: 20px;"></div>
+    <h3>{{textoModel}}</h3>
+    <form [formGroup]="prodcutoForm" (ngSubmit)="onSubmit()">
+        <input hidden formControlName="id" readonly/>
+        <div class="formGroup">
+          <label for="nombre">NOMBRE</label>
+          <input id="nombre" class="form-control" formControlName="nombre"
+                  pattern="^\S.*$" placeholder="Nombre"/>
+        </div> 
+        <div class="formGroup">
+          <label for="descripcion">DESCRIPCION</label>
+          <input id="descripcion" class="form-control" formControlName="descripcion"
+                  pattern="^\S.*$" placeholder="descripcion"/>
+        </div> 
+        <div class="formGroup">
+          <label for="precio">PRECIO</label>
+          <input id="precio" class="form-control" formControlName="precio"
+                  pattern="^\S.*$" placeholder="precio"/>
+        </div> 
+        <div class="formGroup">
+          <label for="stock">STOCK</label>
+          <input id="stock" class="form-control" formControlName="stock"
+                  type="number" placeholder="stock"/>
+        </div> 
+        <button type="submit" class="btn btn-success" [disabled]="prodcuto.invalid" style="margin-top: 20px;">
+          Guardar
+        </button>
+    </form>
+  </div>
