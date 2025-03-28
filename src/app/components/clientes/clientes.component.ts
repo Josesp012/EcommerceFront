@@ -30,7 +30,6 @@ export class ClientesComponent implements OnInit{
         email: ['',[Validators.required, Validators.email]],
         telefono: ['',[Validators.required]],
         direccion: ['',[Validators.required]],
-  
     }) 
   }
 
@@ -48,14 +47,6 @@ export class ClientesComponent implements OnInit{
   }
   });
 }
-/*
-openModal(): void {
-  this.showModal = true;
-  this.modalTitle = 'Agregar Cliente';
-  this.isEditMode = false;
-  this.clienteForm.reset();
-}*/
-
 
 toggleForm(): void{
   this.showForm = !this.showForm;
@@ -97,7 +88,7 @@ toggleForm(): void{
       this.clienteService.createCliente(clienteData).subscribe({
         next: (newCliente)=>{
           Swal.fire({
-            title: "Cliente " + newCliente.nombre + " creada" ,
+            title: "Cliente " + newCliente.nombre + " creado" ,
             text: "El Cliente fue creado exitosamente",
             icon: "success"
         });
@@ -145,7 +136,7 @@ toggleForm(): void{
 
 deleteCliente(idCliente: number){  
   Swal.fire({
-  title: "Eliminar Clientes",
+  title: "Eliminar Cliente",
   text: "ESTAS SEGURO DE QUERER ELIMINAR?",
   icon: "question",
   showConfirmButton: true,
@@ -156,11 +147,10 @@ deleteCliente(idCliente: number){
       next: (deleteCliente) => {
         this.clientes =this.clientes.filter(a => a.idCliente !== idCliente);
         Swal.fire({
-          title: "Cliente eliminada",
+          title: "Cliente eliminado",
           text: "El Cliente fue eliminado exitosamente",
           icon: "success"
-      });
-        
+      });       
       },
       error: (error) =>{
         this.mostrarErrores(error)

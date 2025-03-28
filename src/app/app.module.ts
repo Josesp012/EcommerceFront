@@ -3,18 +3,20 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProductosComponent } from './components/productos/productos.component';
+import { ProductoComponent } from './components/productos/productos.component';
 import { ClientesComponent } from './components/clientes/clientes.component';
 import { NavbarComponent } from './components/common/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
+import { PedidosComponent } from './components/pedidos/pedidos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProductosComponent
+    ProductoComponent,
     ClientesComponent,
-    NavbarComponent
+    NavbarComponent,
+    PedidosComponent
   ],
   imports: [
     BrowserModule,
